@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import { identite, gemula } from '../data/cv';
+const titre = `${identite.nom} · ${identite.titre} | ${identite.sousTitre}`;
+const description = `Portfolio de ${identite.nom}, Data Analyst en Data Science et Business Intelligence, à ${identite.lieu}.`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: identite.nom,
+  jobTitle: identite.titre,
+  description: identite.resume,
+  url: Astro.site?.href,
+  email: `mailto:${identite.email}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'Douala', addressCountry: 'CM' },
+  sameAs: [identite.linkedin, identite.github],
+  worksFor: { '@type': 'Organization', name: 'Gemula', url: gemula.url },
+  alumniOf: ['Polytechnique de Douala', 'Université de Douala'],
+};
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titre}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#08090A" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={titre} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    <slot />
+  </body>
+</html>

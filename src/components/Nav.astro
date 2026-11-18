@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+import { navigation, identite } from '../data/cv';
+---
+<header class="nav">
+  <div class="container nav-in">
+    <a href="#top" class="brand">{identite.nom}</a>
+    <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">
+      <span class="i-open"><Icon name="menu" /></span><span class="i-close" hidden><Icon name="close" /></span>
+    </button>
+    <nav id="menu" aria-label="Navigation principale">
+      <ul>{navigation.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+    </nav>
+  </div>
+</header>
+<style>
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(8, 9, 10, .85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--b1); }
+  .nav-in { display: flex; align-items: center; justify-content: space-between; height: 4rem; }
+  .brand { font-family: var(--font-titre); font-weight: 600; }
+  ul { display: flex; gap: 1.5rem; list-style: none; }
+  nav a { color: var(--tx2); font-size: .92rem; transition: color .2s; }
+  nav a:hover { color: var(--tx); }
+  .burger { display: none; background: none; border: 1px solid var(--b2); color: var(--tx); border-radius: .5rem; padding: .45rem; cursor: pointer; }
+  @media (max-width: 760px) {
+    .burger { display: grid; }
+    nav { display: none; position: absolute; top: 4rem; left: 0; right: 0; background: var(--s1); border-bottom: 1px solid var(--b1); padding: 1rem 1.25rem; }
+    nav.open { display: block; }
+    ul { flex-direction: column; gap: 0; }
+    nav a { display: block; padding: .8rem 0; font-size: 1rem; }
+  }
+</style>
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.burger')!;
+  const menu = document.getElementById('menu')!;
+  const set = (open: boolean) => {
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    btn.querySelector('.i-open')!.toggleAttribute('hidden', open);
+    btn.querySelector('.i-close')!.toggleAttribute('hidden', !open);
+  };
+  btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && set(false));
+</script>

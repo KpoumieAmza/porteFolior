@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+import { identite } from '../data/cv';
+const liens = [
+  { icone: 'mail', label: identite.email, href: `mailto:${identite.email}` },
+  { icone: 'linkedin', label: 'LinkedIn', href: identite.linkedin },
+  { icone: 'github', label: 'GitHub', href: identite.github },
+  ...(identite.afficherTelephone ? [{ icone: 'phone', label: identite.telephone, href: `tel:${identite.telephone.replace(/\s/g, '')}` }] : []),
+];
+---
+<section id="contact" class="section glow-top">
+  <div class="container">
+    <p class="eyebrow">Échangeons</p>
+    <h2>Contact</h2>
+    <p class="muted lieu"><Icon name="pin" size={16} /> {identite.lieu}</p>
+    <div class="grid grid-2">
+      {liens.map((l) => (
+        <a class="card lien" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+          <Icon name={l.icone} /> <span>{l.label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .lieu { display: flex; align-items: center; gap: .4rem; margin: -1rem 0 1.5rem; }
+  .lien { display: flex; align-items: center; gap: .8rem; overflow-wrap: anywhere; }
+  .lien :global(svg) { color: var(--ac-tx); flex: none; }
+</style>

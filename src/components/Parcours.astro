@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.astro';
+import { experiences } from '../data/cv';
+---
+<section id="parcours" class="section">
+  <div class="container">
+    <p class="eyebrow">Expérience</p>
+    <h2>Parcours</h2>
+    <div class="grid grid-2">
+      {experiences.map((e) => (
+        <article class="card">
+          <div class="icon-box"><Icon name="briefcase" /></div>
+          <h3>{e.poste}</h3>
+          <p class="muted">{e.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

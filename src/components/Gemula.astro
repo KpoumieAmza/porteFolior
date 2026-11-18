@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import logo from '../assets/gemula-logo.jpeg';
+import { gemula } from '../data/cv';
+---
+<section id="gemula" class="section glow-top">
+  <div class="container">
+    <p class="eyebrow">Collectif</p>
+    <h2>Gemula</h2>
+    <div class="card bloc">
+      <a href={gemula.url} class="logo" target="_blank" rel="noopener" aria-label="Visiter gemula.org">
+        <Image src={logo} alt="Logo de Gemula" width={280} height={280} />
+      </a>
+      <div>
+        <h3>{gemula.role}</h3>
+        <p class="muted">{gemula.texte}</p>
+        <a class="btn" href={gemula.url} target="_blank" rel="noopener">Découvrir Gemula <Icon name="external" size={16} /></a>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .bloc { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; }
+  .logo { display: block; background: #fff; border-radius: 1rem; padding: .5rem; width: 12rem; }
+  .logo :global(img) { border-radius: .6rem; }
+  h3 { font-size: 1.3rem; margin-bottom: .5rem; }
+  p { margin-bottom: 1.2rem; }
+  @media (max-width: 640px) { .bloc { grid-template-columns: 1fr; } .logo { width: 10rem; } }
+</style>

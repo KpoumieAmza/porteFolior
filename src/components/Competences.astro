@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+import { competences, langues } from '../data/cv';
+---
+<section id="competences" class="section">
+  <div class="container">
+    <p class="eyebrow">Savoir-faire</p>
+    <h2>Compétences</h2>
+    <div class="grid grid-2">
+      {competences.map((c) => (
+        <article class="card">
+          <div class="icon-box"><Icon name={c.icone} /></div>
+          <h3>{c.titre}</h3>
+          <p class="muted">{c.texte}</p>
+        </article>
+      ))}
+    </div>
+    <h3 class="langues-t">Langues</h3>
+    <div class="langues">
+      {langues.map((l) => <span class="tag">{l.langue} · {l.niveau}</span>)}
+    </div>
+  </div>
+</section>
+<style>
+  .langues-t { margin: 2.5rem 0 1rem; }
+  .langues { display: flex; flex-wrap: wrap; gap: .6rem; }
+</style>

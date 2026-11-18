@@ -1,0 +1,8 @@
+{
+  "framework": "astro",
+  "outputDirectory": "dist",
+  "buildCommand": "npm run build",
+  "redirects": [
+    { "source": "/documents/CV_KPOUMIE_Amza_Data_Analyst_v3.pdf", "destination": "/documents/cv-kpoumie-amza.pdf", "permanent": true }
+  ]
+}

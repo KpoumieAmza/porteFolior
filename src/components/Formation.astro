@@ -1,0 +1,35 @@
+---
+import Icon from './Icon.astro';
+import { formations, certifications } from '../data/cv';
+---
+<section id="formation" class="section">
+  <div class="container">
+    <p class="eyebrow">Apprentissage</p>
+    <h2>Formation et certifications</h2>
+    <div class="grid grid-2">
+      <div class="grid">
+        {formations.map((f) => (
+          <article class="card">
+            <div class="icon-box"><Icon name="grad" /></div>
+            <h3>{f.diplome}</h3>
+            <p class="muted">{f.etablissement}</p>
+            <p class="periode">{f.periode}</p>
+          </article>
+        ))}
+      </div>
+      <div class="grid">
+        {certifications.map((c) => (
+          <article class="card">
+            <div class="icon-box"><Icon name="award" /></div>
+            <h3>{c.organisme}</h3>
+            <p class="muted">{c.intitule}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .grid { align-content: start; }
+  .periode { color: var(--ac-tx); font-size: .85rem; font-weight: 600; margin-top: .5rem; }
+</style>

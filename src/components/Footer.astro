@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import { identite } from '../data/cv';
+---
+<footer>
+  <div class="container in">
+    <p>© {new Date().getFullYear()} {identite.nom}</p>
+    <a href="#top" class="haut">Haut de page <Icon name="up" size={16} /></a>
+  </div>
+</footer>
+<style>
+  footer { border-top: 1px solid var(--b1); padding-block: 2rem; color: var(--tx3); font-size: .9rem; }
+  .in { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .haut { display: inline-flex; align-items: center; gap: .4rem; }
+  .haut:hover { color: var(--tx); }
+</style>

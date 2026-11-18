@@ -1,0 +1,47 @@
+---
+import Icon from './Icon.astro';
+import { projets, domaines } from '../data/cv';
+---
+<section id="projets" class="section">
+  <div class="container">
+    <p class="eyebrow">Réalisations</p>
+    <h2>Projets</h2>
+    <div class="filtres" role="group" aria-label="Filtrer les projets par domaine">
+      <button class="btn" data-filter="all" aria-pressed="true">Tous</button>
+      {domaines.map((d) => <button class="btn" data-filter={d.id} aria-pressed="false">{d.label}</button>)}
+    </div>
+    <div class="grid grid-2">
+      {projets.map((p) => (
+        <article class="card" data-domain={p.domaine}>
+          <p class="eyebrow">{p.type}</p>
+          <h3>{p.nom}</h3>
+          <ul>{p.description.map((l) => <li class="muted">{l}</li>)}</ul>
+          <div class="tags">{p.technologies.map((t) => <span class="tag">{t}</span>)}</div>
+          {(p.code || p.demo) && (
+            <div class="liens">
+              {p.code && <a class="btn" href={p.code} target="_blank" rel="noopener"><Icon name="github" size={16} /> Code</a>}
+              {p.demo && <a class="btn" href={p.demo} target="_blank" rel="noopener"><Icon name="external" size={16} /> Démo</a>}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .filtres { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem; }
+  .filtres .btn[aria-pressed='true'] { background: var(--ac-bg); border-color: var(--ac); color: var(--ac-tx); }
+  ul { list-style: none; display: grid; gap: .6rem; margin: .8rem 0 1.2rem; font-size: .95rem; }
+  .tags, .liens { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+</style>
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-domain]');
+  btns.forEach((b) =>
+    b.addEventListener('click', () => {
+      const f = b.dataset.filter;
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      cards.forEach((c) => (c.hidden = !(f === 'all' || c.dataset.domain === f)));
+    })
+  );
+</script>
